@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Logowanie - budżet osobisty{% endblock %}
+
+{% block body %}
+
+
+	<div class="row text-center ">
+		<div class="col-12 background">
+			<p> Zapanuj nad swoimi finansami już dziś! Skorzystaj z aplikacji do zarządzania budżetem osobistym w prosty i wygodny sposób. </p>
+			<div class="ikon">
+				<i class="icon-wallet"></i>
+			</div>
+			<p> <strong> Dziękuję za rejestrację w aplikacji! Możesz już zalogować się na swoje konto! </p>
+		</div>
+	</div>
+	
+	<section>			
+		<div class="row text-center ">
+			<div class ="col-6 col-md-4 offset-md-2 col-lg-3 offset-lg-3 background p-0">
+				
+				<div class="user" style="background-color: #e6e6e6; cursor:default;">
+					<a href=# class="link" >
+						<h2 class="h4" style="color: #006666; cursor:default;" > Logowanie</h2>
+					</a>
+				</div>
+			</div>
+			<div class ="col-6 col-md-4 col-lg-3 background p-0">
+						
+				<div class="user two">
+					<a href="/signup/new" class="link">
+						<h2 class="h4">Rejestracja</h2>
+					</a>
+				</div>					
+			</div>
+		</div>
+		
+		<div class ="row">
+			<div class ="col-md-8 offset-md-2 col-lg-6 offset-lg-3 background b mt-4">
+				<form action="/login/create" method="post">
+					<div class ="row">
+						<div class="col-3 column1 form-group ml-2"> <label for="inputLogin">Login:</label></div>
+						
+						<div class="col-8"> <input type="text" class="form-control" id="inputLogin" name="login" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'" > </div>
+					
+						<div class="col-3 column1 form-group ml-2"><label for="inputPassword">Hasło:</label></div>
+						
+						<div class="col-8"> <input type="password" class="form-control" id="inputPassword" name="password" placeholder="hasło" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'" > </div>
+					
+
+						<div class="col-6 offset-3 mt-4 p-2">
+						<button type="submit" class="btn btn-lg" > Zaloguj się</button></div>
+
+					</div>			
+				</form>
+				
+				<?php
+					if (isset($_SESSION['error'])) //jesli istnieje zmienna error, tylko wtedy pokaz:
+						echo $_SESSION['error'];
+				?>
+
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

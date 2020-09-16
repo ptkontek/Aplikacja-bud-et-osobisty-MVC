@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Rejestracja - budżet osobisty{% endblock %}
+
+{% block body %}
+ 
+<div class="row text-center">
+	<div class="col-12 background">
+		<p> Zapanuj nad swoimi finansami już dziś! Skorzystaj z aplikacji do zarządzania budżetem osobistym w prosty i wygodny sposób. </p>
+		<div class="ikon">
+			<i class="icon-wallet"></i>
+		</div>
+		<p> <strong> Zaloguj się </strong> lub <strong> zarejestruj</strong>, jeśli nie masz jeszcze konta. </p>
+	</div>
+</div>
+			
+<section>
+	<div class="error">
+	  {% if user.errors is not empty %}
+        <p><strong>Niepoprawne dane, popraw następujące błedy:</strong></p>
+        <ul>
+            {% for error in user.errors %}
+                <ul>{{ error }}</ul>
+            {% endfor %}
+        </ul>
+    {% endif %}	
+	</div>
+	
+	<div class="row text-center">
+		<div class ="col-6 col-md-4 offset-md-2 col-lg-3 offset-lg-3 background p-0">
+			<div class="user" style="background-color: #e6e6e6; cursor:default;">
+				<a href=# class="link" >
+					<h2 class="h4" style="color: #006666; cursor:default;" > Rejestracja</h2>
+				</a>
+			</div>
+		</div>
+		<div class ="col-6 col-md-4 col-lg-3 background p-0">
+			<div class="user two">
+				<a href="/login/new" class="link">
+					<h2 class="h4">Logowanie</h2>
+				</a>
+			</div>					
+		</div>
+	</div>	
+
+	<div class ="row">
+		<div class ="col-md-8 offset-md-2 col-lg-6 offset-lg-3 background b mt-4">		
+						
+			 <form method="post" action="/signup/create" id="formSignup">	
+			 
+				<div class="row">	
+					<div class="col-4 column1 form-group ml-2"> <label for="inputLogin">Login:</label></div>
+					 <div class="col-7"> <input type="text" class="form-control" id="inputLogin" name="login" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'" value="{{user.login}}" required></div>
+						
+					<div class="col-4 column1 form-group ml-2"><label for="inputEmail">E-mail:</label></div>
+						<div class="col-7"> <input type="email"  id="inputEmail" class="form-control" name="email" placeholder="e-mail" onfocus="this.placeholder=''" onblur="this.placeholder='e-mail'" value="{{user.email}}" required> </div>
+				
+			     	<div class="col-4 column1 form-group ml-2"><label for="inputPassword">Hasło:</label></div>
+						<div class="col-7"> <input type="password" id="inputPassword" class="form-control"  name="password" placeholder="hasło" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'" required> </div>
+				
+				     <div class="col-4 column1 form-group ml-2"><label for="inputPasswordConfirmation">Powtórz hasło:</label></div>
+						<div class="col-7"> <input type="password" id="inputPasswordConfirmation" class="form-control"  name="password_confirmation" placeholder="powtórz hasło" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'" required > </div>
+						
+					<div class="col-8 offset-2 mt-4">
+						<div class="g-recaptcha" data-sitekey="6LedZOsUAAAAAMRPTQcVAsEmGQO8DBrj18pi7k4P"></div>
+					</div>
+						
+					<div class="col-6 offset-3 mt-4 p-2">
+					<button type="submit" class="btn btn-lg" > Zarejestruj się</button></div>						
+			</div>
+		</form>
+	</div>
+			
+</section>
+{% endblock %}

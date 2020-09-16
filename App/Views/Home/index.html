@@ -1,0 +1,28 @@
+{% extends 'baseAfterLogin.html' %}
+
+{% block title %}Strona główna - budżet osobisty {% endblock %}
+
+{% block body %}
+
+	<div class="row text-center">
+		<div class="col-12 opis content background b">
+			<h2 class="h4 mt-2"> Budżet osobisty </h2>
+			
+
+			<p> Witaj <strong>	{{ current_user.login }}
+			</strong> w aplikacji, która pozwoli Ci w łatwy i przyjemny sposób <strong> zapanować nad Twoim budżetem osobistym</strong>. Dzięki kontroli swoich finansów dowiesz się na co przeznaczasz najwięcej pieniędzy, na czym możesz zaoszczędzić oraz ile odłożyć na przyjemności i rajskie wakacje! <i class="icon-sun"></i> </p> 
+			<i class="icon-wallet"></i> <br><br>
+				
+			<h2 class="h4 mt-1"> Obsługa aplikacji </h2>
+			<p> Wydatki oraz przychody będą zapisywane w poszczególnych <strong>kategoriach</strong>, dzięki czemu na koniec miesiąca dokładnie się dowiesz, ile pieniędzy wydajesz na mieszkanie, jedzenie, przyjemności i głupoty. Możesz również edytować i usuwać kategorie, aby dostosować aplikację do swoich potrzeb. <strong>Przekonaj się już dziś jakie to proste!</strong></p>
+			
+			{% if  current_user  %}
+				User with ID {{ current_user.id }} is logged in. <a href="/logout">Log out</a>.
+			{% else %}
+				<a href="/signup/new">Sign up</a> or <a href="/login">log in</a>.
+			{% endif %}
+			
+		</div>
+	</div>
+
+{% endblock %}
