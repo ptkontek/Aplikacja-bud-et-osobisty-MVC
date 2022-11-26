@@ -32,7 +32,7 @@ class User extends \Core\Model
 		 
     $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
-    $sql = 'INSERT INTO users (login, email, password_hash)
+    $sql = 'INSERT INTO users (username, email, password)
             VALUES (:login, :email, :password_hash)';
 
     $db = static::getDB();
@@ -95,7 +95,7 @@ class User extends \Core\Model
         }
 		
 		//bot or not, secret key
-		$secretKey = "6LedZOsUAAAAABLE672PqgG12Vh_ZDCezZt6iapN";
+		$secretKey = "6LejbjcjAAAAAGf7XaHY4jf8qUkB48epcw9P-frm";
 		
 		//pobierz zawartosc pliku do zmienej, czy weryfikacja się udała, połączenie się z zewnętrznym serwerem google'a
 		$check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$_POST['g-recaptcha-response']);
@@ -139,8 +139,8 @@ class User extends \Core\Model
         return $stmt->fetch();
      }
 	
-	    public static function findByLogin($login){
-        $sql = 'SELECT * FROM users WHERE login = :login';
+	public static function findByLogin($login){
+        $sql = 'SELECT * FROM users WHERE username = :login';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -161,7 +161,7 @@ class User extends \Core\Model
         $user = static::findByLogin($login);
 
         if ($user) {
-            if (password_verify($password, $user->password_hash)) {
+            if (password_verify($password, $user->password)) {
                 return $user;
             }
         }
@@ -184,5 +184,7 @@ class User extends \Core\Model
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    // public funtion saveNewIncome
 
 }

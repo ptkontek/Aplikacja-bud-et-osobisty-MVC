@@ -20,19 +20,23 @@ class Config
      * Database name
      * @var string
      */
-    const DB_NAME = 'aplikacjabsmvc';
+    // const DB_NAME = 'personal_budget';
+    const DB_NAME = 'patrycj5_budget-mvc';
 
     /**
      * Database user
      * @var string
      */
-    const DB_USER = 'mvcuser';
+    const DB_USER = 'patrycj5_BudgetAdmin';
+    // const DB_USER = 'root';
 
     /**
      * Database password
      * @var string
      */
-    const DB_PASSWORD = 'secret';
+    const DB_PASSWORD = 'pesronalbudget';
+    // const DB_PASSWORD = '';
+
 	
     /**
      * Show or hide error messages on screen

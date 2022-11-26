@@ -4,9 +4,9 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Models\User;
-use \App\Models\IncomeModel;
-use \App\Models\ExpenseModel;
-use \App\Models\Payment;
+// use \App\Models\IncomeModel;
+// use \App\Models\ExpenseModel;
+// use \App\Models\Payment;
 
 /**
  * Signup controller
@@ -31,13 +31,13 @@ class Signup extends \Core\Controller
     {
         $user = new User($_POST);
 
-        if ($user->saveNewIncome()) {
+        if ($user->save()) {
 
             
 
-            IncomeModel::addDefaultIncomeCategory($user->email);
-			ExpenseModel::addDefaultExpensesCategory($user->email);
-			Payment::addDefaultPaymentMethod($user->email);		
+            // IncomeModel::addDefaultIncomeCategory($user->email);
+			// ExpenseModel::addDefaultExpensesCategory($user->email);
+			// Payment::addDefaultPaymentMethod($user->email);		
 
             $this->redirect('/signup/success');
         } else {

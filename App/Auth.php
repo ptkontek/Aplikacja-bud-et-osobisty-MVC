@@ -5,7 +5,7 @@ namespace App;
 use App\Models\User;
 
 /**
- * Authentication
+ * Authentication\
  *
  * PHP version 7.0
  */
@@ -23,7 +23,7 @@ class Auth
 		 session_regenerate_id(true);
 
          $_SESSION['user_id'] = $user->id;
-		 $_SESSION['login'] = $user->login;
+		 $_SESSION['login'] = $user->username;
     }
 
     /**

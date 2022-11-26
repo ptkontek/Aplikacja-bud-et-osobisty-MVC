@@ -22,6 +22,7 @@ class Login extends \Core\Controller
      */
     public function newAction()
     {
+        // print_r
         View::renderTemplate('Login/new.html');
     }
 
