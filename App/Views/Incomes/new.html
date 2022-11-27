@@ -1,0 +1,127 @@
+{% extends 'baseAfterLogin.html' %}
+
+{% block title %}Strona główna - budżet osobisty {% endblock %}
+
+{% block body %}
+
+<form method ="post">
+					<div class ="row justify-content-center">
+						<div class="col-12 background form">
+							<h4 class="h4 font-weight-bold mt-2 mb-4">Dodaj przychód</h4>
+					
+							<div class="row">
+								<div class ="col-2 col-md-3 mt-2 ml-5 form-group"> <label for="inputAmount" class="row2" > Kwota: </label></div>
+								<div class="col-5 col-sm-4 ml-auto"><input type="text"  value="<?php
+								if (isset($_SESSION['frAmount'])){
+									echo $_SESSION['frAmount'];
+									unset($_SESSION['frAmount']);
+								}
+								?>"class="form-control" id="inputAmount" name="amount">
+								<?php
+									if (isset($_SESSION['errorAmount'])){
+										echo '<div class="error">'.$_SESSION['errorAmount'].'</div>';
+										unset($_SESSION['errorAmount']);	
+									}
+								?></div>
+								<div class="col-3 col-sm-4"></div>
+
+								<div class ="col-2 col-md-3 mt-2 ml-5 form-group"><label for="inputDate" class="row2"> Data: </label></div>
+								<div class="col-5 col-sm-4 ml-auto"><input type="date"  value="<?php
+								if (isset($_SESSION['frDate'])){
+									echo $_SESSION['frDate'];
+									unset($_SESSION['frDate']);
+								}
+								?>"class="form-control" id="inputDate" name="date">
+								<?php
+									if (isset($_SESSION['errorDate'])){
+										echo '<div class="error">'.$_SESSION['errorDate'].'</div>';
+										unset($_SESSION['errorDate']);	
+									}
+								?></div>
+								<div class="col-3 col-sm-4"></div>
+							</div>
+					
+							<div class="row mt-3">						
+								<div class ="col-8 offset-4 col-sm-7 offset-sm-5 col-md-5 incomes">
+									<fieldset>
+										<legend> Kategoria przychodu </legend>
+										<?php
+											require_once "connect.php";
+											mysqli_report(MYSQLI_REPORT_STRICT);
+												
+											try{
+												$connection = new mysqli($host, $db_user, $db_password, $db_name);
+												$connection->set_charset("utf8");
+
+												if ($connection->connect_errno!=0){
+													throw new Exception(mysqli_connect_errno());
+												}else{
+													$userId = $_SESSION['id'];
+												
+													$result=$connection->query("SELECT name FROM incomes_category_assigned_to_users WHERE user_id ='$userId'");
+													
+													if(!$result) throw new Exception($connection->error);
+														
+													$howManyNames=$result->num_rows;
+
+													if($howManyNames>0){
+														while ($row = $result->fetch_assoc())
+														{
+															echo '<div class="row ">';
+															echo '<label>'.'<input type="radio" name="incomeCategory" value="'.$row['name'];
+															
+															if(isset($_SESSION['frCategory'])){
+																if($row['name'] == $_SESSION['frCategory']) {
+																	echo '"checked ="checked"';
+																}
+															}
+															
+															echo '">'.' '.$row['name'].'</label>';
+															echo '</div>';
+														}
+														$result->free_result();
+													}
+												}
+												$connection->close();
+											}
+											catch(Exception $e)
+											{
+												echo '<span style = "color:#b30000; font-size:17px;">Błąd serwera! Przepraszamy za niedogodności i prosimy o skorzystanie z aplikacji w innym terminie!" </span>';
+													//echo '<br />Informacja developerska: '.$e;
+											}
+										?>
+										<?php
+											if (isset($_SESSION['errorCategory'])){
+												echo '<div class="error">'.$_SESSION['errorCategory'].'</div>';
+												unset($_SESSION['errorCategory']);
+											}
+										?>			
+									</fieldset>							
+								</div>
+								
+								<div class ="col-10 offset-1 form-group incomes">
+									<div class="comment"><label for="comment"> Komentarz:  [opcjonalnie] </label></div>
+									<textarea class="form-control" name="comment" id="comment" rows="4"><?php
+									if (isset($_SESSION['frComment'])){
+										echo $_SESSION['frComment'];
+										unset($_SESSION['frComment']);
+									}
+									?></textarea>
+									<?php
+									if (isset($_SESSION['errorComment'])){
+										echo '<div class="error">'.$_SESSION['errorComment'].'</div>';
+										unset($_SESSION['errorComment']);	
+									}
+									?></textarea>
+								</div>	
+
+								<div class="col-4 col-md-3 offset-md-3 offset-2">
+									<input type="submit" value="Dodaj"></div> 
+								<div class="col-4 col-md-3">	
+									<input type="submit" value="Anuluj"></div>
+							</div>		
+						</div>
+					</div>
+				</form>
+
+{% endblock %}
